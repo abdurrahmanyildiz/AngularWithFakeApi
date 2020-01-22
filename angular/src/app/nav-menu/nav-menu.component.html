@@ -1,0 +1,45 @@
+<div class="sidebar" data-color="white" data-active-color="danger">
+  <!--
+      Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+  -->
+  <div class="logo">
+    <a [routerLink]='["/admin/home"]' class="simple-text logo-mini">
+      <div class="logo-image-small py-1">
+        <i class="nc-icon nc-atom"></i>
+      </div>
+    </a>
+    <a href="#" [routerLink]='["/admin/home"]'class="simple-text logo-normal">
+      Yıldız Apps
+    </a>
+  </div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <li [ngClass]="{'active': activePath =='/admin/home' }">
+        <a (click)="navigate('/admin/home')">
+          <i class="nc-icon nc-bank"></i>
+          <p>Dashboard</p>
+        </a>
+      </li>
+      <li [ngClass]="{'active': activePath =='/admin/counter' }">
+        <a (click)="navigate('/admin/counter')">
+          <i class="nc-icon nc-ruler-pencil"></i>
+          <p>Counter</p>
+        </a>
+      </li>
+      <li [ngClass]="{'active': activePath =='/admin/fetchdata' }">
+        <a (click)="navigate('/admin/fetchdata')">
+          <i class="nc-icon nc-tile-56"></i>
+          <p>Fetch Data</p>
+        </a>
+      </li>
+      <!--Sidebar footer-->
+      <li class="active-pro">
+        <a (click)="navigate('/admin/home')">
+          <i class="nc-icon nc-chat-33"></i>
+          <p>Contact</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+

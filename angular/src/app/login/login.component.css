@@ -1,0 +1,30 @@
+.invalid-feedback {
+  display:block;
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.invalidForm {
+  border: 1px solid red;
+}
+
+.invalidLoginMessage{
+  border-radius: 5px;
+  background-color: rgba(240, 10,10,0.4);
+  color:black;
+  min-height: 50px;
+  padding: 10px;
+}
+
+.loginCard {
+  background-color: white;
+  border-radius: 9px;
+  box-shadow: 2px 2px 18px #aaa;
+  padding: 5%;
+}
+
+.loginFormControl{
+  border-radius:5px;
+}

@@ -1,0 +1,44 @@
+
+<div class="row mt-4">
+  <div class="col-md-4 mr-auto ml-auto">
+    
+    <form [formGroup]="loginForm" id="loginForm" class="loginCard" (ngSubmit)="login()">
+      <h2 class="text-center text-bold">Login</h2>
+      <div class="form-group">
+        <div *ngIf="invalidLogin" class="invalidLoginMessage" id="invalidLoginMessage">
+          Username or Password is wrong!
+        </div>
+      </div>
+      <div class="form-group px-5">
+        <input type="text" formControlName="username" class="form-control loginFormControl" required placeholder="Username"
+               [ngClass]="{ 'is-invalid':invalidLogin && loginForm.valid }" />
+        <div *ngIf="(loginForm.dirty || loginForm.touched) && loginForm.get('username').hasError('required')" class="invalid-feedback">
+          Username is required
+        </div>
+      </div>
+      <div class="form-group px-5">
+        <input type="password" formControlName="password" class="form-control loginFormControl" required placeholder="Password"
+               [ngClass]="{ 'is-invalid': invalidLogin && loginForm.valid }" />
+
+        <div *ngIf="(loginForm.dirty || loginForm.touched) && loginForm.get('password').hasError('required')" class="invalid-feedback">
+          Password is required
+        </div>
+
+      </div>
+      <div class="form-group text-center">
+        <button class="btn btn-primary" [disabled]="loginForm.invalid" style="min-width:30%;">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Login
+        </button>
+      </div>
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+
+
