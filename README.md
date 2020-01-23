@@ -12,3 +12,15 @@ After starting API you need to redirect http calls on Angular. To provide this r
 
 Finally, you need to say Angular project "use this proxy file" with "npm run proxy"
 This command will run "ng serve --disable-host-check --proxy-config proxy.conf.json" command in package.json of Angular.
+
+1. Run Fake Api
+
+![Run Api](https://github.com/abdurrahmanyildiz/AngularWithFakeApi/blob/master/gitss/nodejsapistart.PNG)
+
+2. Run Angular app with "proxy" script
+
+![Run with Proxy](https://github.com/abdurrahmanyildiz/AngularWithFakeApi/blob/master/gitss/ngrunproxy.PNG)
+
+You can see redirection logs as following:
+
+![Logs](https://github.com/abdurrahmanyildiz/AngularWithFakeApi/blob/master/gitss/proxyredirect.PNG)
