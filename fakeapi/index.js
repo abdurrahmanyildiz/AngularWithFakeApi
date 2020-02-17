@@ -4,12 +4,12 @@ var app = express();
 
 var port = process.env.port || 3000;
 
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
-app.post('/api/login', (req,res) => {
-    if (req.body.username==='admin' && req.body.password==='12345') {
-        res.send({email:'admin@admin.com', id:5, token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'})
+app.post('/api/login', (req, res) => {
+    if (req.body.username === 'admin' && req.body.password === '12345') {
+        res.send({ email: 'admin@admin.com', id: 5, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' })
     } else {
         res.status(401).send('Not Authorized');
     }
@@ -17,20 +17,22 @@ app.post('/api/login', (req,res) => {
     res.status(500).send('Internal Error');
 });
 
-app.get('/api/fetchdata', (req,res) => {
-    let data= []; 
-    data.push({"dateFormatted":"12/3/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
-    data.push({"dateFormatted":"12/3/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
-    data.push({"dateFormatted":"1/3/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
-    data.push({"dateFormatted":"12/3/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
-    data.push({"dateFormatted":"12/5/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
-    data.push({"dateFormatted":"12/5/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
-    data.push({"dateFormatted":"12/7/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
-    data.push({"dateFormatted":"12/9/2018", "temperatureC":25, "temperatureF":42, "summary":"Lorem ipsum"})
+app.get('/api/fetchdata', (req, res) => {
+    let data = [];
+    const pageSize = parseInt(req.query.pageSize);
+    const pageNum = parseInt(req.query.pageNum);
 
+    if (pageSize === 'NaN' || pageNum === 'NaN') {
+        res.status(400).send('Bad Argumetns');
+    }
 
-    res.status(200).send(data);
+    for (let i = 0; i < 50; i++) {
+        data.push({ "dateFormatted": "12/3/2018", "temperatureC": i, "temperatureF": 42, "summary": "item " + (i + 1) });
+    }
+
+    const resData = data.slice(pageSize * pageNum, pageSize * pageNum + pageSize)
+    return res.status(200).send(resData);
 });
 
 app.listen(port);
-console.log('Fake api started on '+ port);
+console.log('Fake api started on ' + port);
