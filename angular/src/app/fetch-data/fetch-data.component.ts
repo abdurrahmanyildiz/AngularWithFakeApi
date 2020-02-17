@@ -1,18 +1,30 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ConfigService } from '../core/services/config.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { WeatherForecast } from '../core/Models/WeatherForecast';
+import { WeatherService } from '../core/services/weather.service';
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
-export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+export class FetchDataComponent implements OnInit {
 
-  constructor(http: HttpClient, private config: ConfigService) {
-    http.get<WeatherForecast[]>(this.config.getApiUrl() + '/fetchdata').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+  public forecasts: WeatherForecast[] = [];
+  pageSize = 10;
+  pageNum = 0;
+
+  constructor(private weatherService: WeatherService) {
+
+  }
+
+  ngOnInit(): void {
+    this.getForecasts();
+  }
+
+
+  getForecasts() {
+    this.weatherService.getForecasts(this.pageSize, this.pageNum).subscribe(res => {
+      this.forecasts = res;
+    });
   }
 
   scroll(el: HTMLElement) {
@@ -21,9 +33,5 @@ export class FetchDataComponent {
 }
 
 
-interface WeatherForecast {
-  dateFormatted: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+
+
