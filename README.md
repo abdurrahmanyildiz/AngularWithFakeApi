@@ -24,3 +24,5 @@ This command will run "ng serve --disable-host-check --proxy-config proxy.conf.j
 You can see redirection logs as following:
 
 ![Logs](https://github.com/abdurrahmanyildiz/AngularWithFakeApi/blob/master/gitss/proxyredirect.PNG)
+
+And Also two paging components added under angular>src>app>core>components.
