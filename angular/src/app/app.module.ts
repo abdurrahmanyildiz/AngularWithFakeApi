@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -11,10 +11,14 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AdminlayoutComponent } from './core/layouts/adminlayout/adminlayout.component';
 import { AuthlayoutComponent } from './core/layouts/authlayout/authlayout.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AlertService } from './core/services/alert.service';
+import { PageSizeComponent } from './core/components/page-size/page-size.component';
+import { PageNumberComponent } from './core/components/page-number/page-number.component';
+import { HttpErrorInterceptor } from './core/interceptors/HttpErrorInterceptor';
+import { ErrorsHandler } from './core/interceptors/ErrorInterceptor';
 
 
 
@@ -27,7 +31,9 @@ import { AlertService } from './core/services/alert.service';
     CounterComponent,
     FetchDataComponent,
     AuthlayoutComponent,
-    AdminlayoutComponent
+    AdminlayoutComponent,
+    PageSizeComponent,
+    PageNumberComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,17 @@ import { AlertService } from './core/services/alert.service';
       }
     })
   ],
-  providers: [AuthGuard, ConfigService, AlertService],
+  providers: [AuthGuard, ConfigService, AlertService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
