@@ -9,7 +9,6 @@ export class LoginModel {
   password: string
 }
 
-declare var $: any;
 
 @Component({
   selector: 'app-login',
@@ -36,7 +35,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    debugger
     this.loading = true;
 
     if (this.loginForm.invalid) {
